@@ -39,8 +39,6 @@ public class ClientSoapController extends AbstractSearchEditController<ClientTO,
     public static final String CLIENT_FORM = "clientForm";
     public static final String CLIENTS_LISTE = "listeClients";
 
-    //@Autowired
-    //private SOAPConnector soapConnector;
 
     @Autowired
     private WebServiceTemplate webServiceTemplate;
