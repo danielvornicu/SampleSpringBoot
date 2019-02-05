@@ -18,6 +18,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <jaxb2.maven.plugin.version>2.4</jaxb2.maven.plugin.version>
+        <maven.jaxb2.plugin.version>0.14.0</maven.jaxb2.plugin.version>
+        <tool.wsimport>${java.home}/bin/wsimport.exe</tool.wsimport>
     </properties>
 
     <!-- Nécessaire pour Spring Boot -->
@@ -37,11 +40,18 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
+
         <!--Authentication and Authorization using Spring Security-->
 <!--        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>-->
+
+        <!--For SOAP Web Services -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web-services</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.h2database</groupId>
@@ -61,6 +71,12 @@
             <artifactId>tomcat-embed-jasper</artifactId>
         </dependency>
 
+        <!--Web Services Description Language for Java Toolkit -->
+        <dependency>
+            <groupId>wsdl4j</groupId>
+            <artifactId>wsdl4j</artifactId>
+        </dependency>
+
 <!--        <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-taglibs</artifactId>
@@ -69,10 +85,113 @@
 
     <build>
         <plugins>
-            <plugin><!-- Include if you want to make an executable jar/war [FAT JAR which includes all  dependencies along with springboot loader] that you can run on commandline using java -jar NAME -->
+            <!-- Include if you want to make an executable jar/war [FAT JAR which includes all  dependencies
+            along with springboot loader] that you can run on commandline using java -jar NAME -->
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
+            <!--Spring WS is contract-first only. This means that you need to start from a contract definition (XSD or WSDL).-->
+
+            <!--This plugin uses wsimport to generate Java classes from XML Schemas from .WSDL file(URL)-->
+ <!--           <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxws-maven-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+                <configuration>
+                    &lt;!&ndash; Source directory of files .WSDL &ndash;&gt;
+                    <wsdlDirectory>${project.basedir}/src/main/resources/wsdl</wsdlDirectory>
+                    &lt;!&ndash; The name of your generated source package &ndash;&gt;
+                    <packageName>com.sei</packageName>
+                    &lt;!&ndash; generated source files destination &ndash;&gt;
+                    <sourceDestDir>src/main/java</sourceDestDir>
+                </configuration>
+            </plugin>-->
+
+            <!--This plugin uses the Java API for XML Binding (JAXB), version 2+, to generate Java classes from XML Schemas-->
+<!--            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>${jaxb2.maven.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    &lt;!&ndash;The location of XSD files(for version <=1.6 du plugin&ndash;&gt;
+                    &lt;!&ndash;<schemaDirectory>${project.basedir}/src/main/resources/</schemaDirectory>&ndash;&gt;
+
+                    &lt;!&ndash;The location par default of XSD files(for version >=2.1 du plugin est src/main/xsd mais on peut la changer&ndash;&gt;
+                    <sources>
+                        <source>src/main/resources/xsd</source>
+                    </sources>
+
+                    &lt;!&ndash;Where do you want your Java code to be generated&ndash;&gt;
+                    <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
+                    &lt;!&ndash; The package of your generated sources &ndash;&gt;
+                    &lt;!&ndash;<packageName>com.sei</packageName>&ndash;&gt;
+
+                    <clearOutputDir>false</clearOutputDir>
+                </configuration>
+            </plugin>-->
+
+            <!--for JAXB stub generation-->
+            <!--This plugin uses the Java API for XML Binding (JAXB), version 2+, to generate Java classes from .WSDL file-->
+            <plugin>
+                <groupId>org.jvnet.jaxb2.maven2</groupId>
+                <artifactId>maven-jaxb2-plugin</artifactId>
+                <version>${maven.jaxb2.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+                <configuration>
+                    <generatePackage>com.sei.generate</generatePackage>
+                    <generateDirectory>${project.basedir}/src/main/java</generateDirectory>
+                    <schemaDirectory>${project.basedir}/src/main/resources/wsdl</schemaDirectory>
+                    <schemaIncludes>
+                        <include>*.wsdl</include>
+                    </schemaIncludes>
+
+                    <debug>true</debug>
+                    <verbose>true</verbose>
+
+                    <!--Use a binding file *. xjb to add annotations @XmlRootElement to Java generated classes-->
+                    <!--Note that <xjc:simple/> is the relevant piece here which will add the @XmlRootElement annotation-->
+                    <!--If you only want the @XmlRootElement, you can use the jaxb2-basics-annotate extension-->
+                    <bindingDirectory>${project.basedir}/src/main/resources/xjb</bindingDirectory>
+                    <bindingIncludes>
+                        <include>*.xjb</include>
+                    </bindingIncludes>
+
+                    <plugins>
+                        <plugin>
+                            <groupId>org.jvnet.jaxb2_commons</groupId>
+                            <artifactId>jaxb2-basics-annotate</artifactId>
+                            <version>1.1.0</version>
+                        </plugin>
+                    </plugins>
+
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 </project>

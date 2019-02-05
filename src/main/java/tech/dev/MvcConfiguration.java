@@ -1,14 +1,6 @@
 package tech.dev;
 
-import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
 
 /**
  * Description de la classe
@@ -19,11 +11,12 @@ import org.springframework.web.servlet.view.JstlView;
  * @version 1.0 $Revision$ $Date$
  */
 
-@Configuration
-@EnableWebMvc
+//using application.properties mechanism
+//@Configuration
+//@EnableWebMvc
 public class MvcConfiguration implements WebMvcConfigurer {
 
-	@Bean
+/*	@Bean
 	public ViewResolver internalResourceViewResolver() {
 		InternalResourceViewResolver resolver  = new InternalResourceViewResolver();
 		resolver.setViewClass(JstlView.class);
@@ -38,5 +31,5 @@ public class MvcConfiguration implements WebMvcConfigurer {
 		source.setBasename("messages/common");
 		source.setDefaultEncoding("UTF-8");
 		return source;
-	}
+	}*/
 }
