@@ -3,6 +3,8 @@ package tech.dev.web.formulaires;
 import tech.dev.to.ClientTO;
 import tech.dev.web.common.base.BaseForm;
 
+import javax.validation.Valid;
+
 /**
  * Description de la classe
  * <p>
@@ -14,6 +16,8 @@ import tech.dev.web.common.base.BaseForm;
 
 public class ClientForm extends BaseForm<ClientTO> {
 
+    //validation by annotation @Valid (in ClientForm) vs manual validation with ValidationUtil.validData(to);
+    @Valid
     private ClientTO client;
 
     @Override

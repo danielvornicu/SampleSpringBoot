@@ -1,0 +1,50 @@
+/* Erreurs lors de la validation dans les écrans de saisie */
+div.errorPanel {
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+div.errorHeader {
+    text-align: center;
+    background: #FFFFFF;
+    color: #FF0000;
+    font-weight: bold;
+    border-width: 1px;
+    border-bottom-width: 1px;
+    width: 100%;
+}
+
+div.errorHeader img.showError {
+    display: none;
+}
+
+div.errorHeader.no-bottom-border {
+    border-bottom-width: 0px;
+}
+
+
+div.errorContent {
+    padding: 1em 0.5em;
+    background: #FFFFFF;
+    color: #FF0000;
+    font-weight: bold;
+    border-width: 1px;
+    border-top-width: 0;
+    /* fixed */
+    z-index: 1;
+    position: fixed;
+    /*    min-width: 1024px;
+        max-width: 97.25%;*/
+    left: 8px;
+    right: 6px;
+    margin: 0 auto;
+}
+
+/* Erreurs sur les champs dans les écrans de saisie */
+label.error,
+span.error {
+    color: #FF0000;
+    background-image: none;
+    margin-left: 1em;
+    font-weight: bold;
+}

@@ -10,7 +10,6 @@ import java.io.Serializable;
  * <p>
  * Date: 11/12/2018
  *
- * @author d.vornicu
  * @version 1.0 $Revision$ $Date$
  */
 
@@ -18,4 +17,15 @@ public abstract class BaseForm<T extends TransferObject> implements Serializable
 
     public abstract void initForm(T to);
     public abstract T saveForm();
+
+    private String redirectUrl;
+
+    public String getRedirectUrl() {
+        return redirectUrl;
+    }
+
+    public void setRedirectUrl(String redirectUrl) {
+        this.redirectUrl = redirectUrl;
+    }
+
 }

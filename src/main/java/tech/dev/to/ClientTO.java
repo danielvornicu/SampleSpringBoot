@@ -3,6 +3,7 @@ package tech.dev.to;
 
 import tech.dev.commons.to.base.TransferObject;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 /**
@@ -17,7 +18,11 @@ import java.io.Serializable;
 public class ClientTO extends TransferObject implements Serializable {
 
     private Long id;
+
+    @NotEmpty(message = "{client.validation.prenom.empty}")
     private String prenom;
+
+    @NotEmpty(message = "{client.validation.nom.empty}")
     private String nom;
 
     public ClientTO() {

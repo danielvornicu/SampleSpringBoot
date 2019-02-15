@@ -12,7 +12,6 @@ import tech.dev.to.ClientTO;
 import tech.dev.web.common.base.AbstractSearchEditController;
 import tech.dev.web.formulaires.ClientForm;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -48,6 +47,11 @@ public class ClientSoapController extends AbstractSearchEditController<ClientTO,
         return ROOT_VUE;
     }
 
+    protected String getRootLink(){
+        // ".." + REQUEST_MAPPING
+        return PARENT_DIRECTORY + REQUEST_MAPPING.replace("/","");
+    }
+
     @Override
     protected void initializeIndexTO(ModelMap model) {
         //liste des TO
@@ -76,6 +80,11 @@ public class ClientSoapController extends AbstractSearchEditController<ClientTO,
 //        ClientWebServ servicePort = service.getClientWebServicePort();
 //        tech.dev.web.jaxws.sei.ClientTO client = servicePort.fetchClientById(id);
 
+        // on definie redirectUrl(../wsclient) en utilisant REQUEST_MAPPING( /wsclient )
+        // et pas ROOT_VUE( wspages/wsclient ) pour gerer un sous repertoire wspages
+        // donc getRedirectAfterEdit() dans le controlleur de base est decalé d'un pas
+        form.setRedirectUrl(getRootLink());
+
         ObjectFactory factory = new ObjectFactory();
         FetchClientByIdRequest request = factory.createFetchClientByIdRequest();
         request.setArg0(id);
@@ -89,6 +98,12 @@ public class ClientSoapController extends AbstractSearchEditController<ClientTO,
 
     @Override
     protected void initializeNewTO(ClientForm form, ModelMap model) {
+
+        // on definie redirectUrl(../wsclient) en utilisant REQUEST_MAPPING( /wsclient )
+        // et pas ROOT_VUE( wspages/wsclient ) pour gerer un sous repertoire wspages
+        // donc getRedirectAfterEdit() dans le controlleur de base est decalé d'un pas
+        form.setRedirectUrl(getRootLink());
+
         fillModel(form, model, null);
     }
 
@@ -101,6 +116,11 @@ public class ClientSoapController extends AbstractSearchEditController<ClientTO,
 //            //Get the web service proxy or port from the web service client factory. This port is nothing but the stub for the web service created.
 //            ClientWebServ servicePort = service.getClientWebServicePort();
 //            tech.dev.web.jaxws.sei.ClientTO client = servicePort.fetchClientById(id);
+
+            // on definie redirectUrl(../wsclient) en utilisant REQUEST_MAPPING( /wsclient )
+            // et pas ROOT_VUE( wspages/wsclient ) pour gerer un sous repertoire wspages
+            // donc getRedirectAfterEdit() dans le controlleur de base est decalé d'un pas
+            form.setRedirectUrl(getRootLink());
 
             ObjectFactory factory = new ObjectFactory();
             FetchClientByIdRequest request = factory.createFetchClientByIdRequest();
@@ -165,20 +185,6 @@ public class ClientSoapController extends AbstractSearchEditController<ClientTO,
         DeleteClientByIdResponse response = (DeleteClientByIdResponse) webServiceTemplate.marshalSendAndReceive(request);
     }
 
-    //override necessaire que pour la partie WS Soap pour gerer le sous repertoire wspages
-    @Override
-    public String cancel(ClientTO to) {
-        return "redirect:.." + REQUEST_MAPPING;
-    }
-
-    //override necessaire que pour la partie WS Soap pour gerer le sous repertoire wspages
-    @Override
-    public String update(@PathVariable Long id, @Valid ClientForm form, ModelMap model) {
-        ClientTO to = form.saveForm();
-        saveTO(to, model, false);
-
-        return "redirect:../.." + REQUEST_MAPPING;
-    }
 
     //override necessaire que pour la partie WS Soap pour gerer le sous repertoire wspages
     @Override
@@ -187,12 +193,4 @@ public class ClientSoapController extends AbstractSearchEditController<ClientTO,
         return "redirect:../.." + REQUEST_MAPPING;
     }
 
-    //override necessaire que pour la partie WS Soap pour gerer le sous repertoire wspages
-    @Override
-    public String create(@Valid ClientForm form, ModelMap model) {
-        ClientTO to = form.saveForm();
-        saveTO(to, model, true);
-
-        return "redirect:.."  + REQUEST_MAPPING;
-    }
 }

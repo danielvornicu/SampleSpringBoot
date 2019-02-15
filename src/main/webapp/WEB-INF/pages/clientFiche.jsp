@@ -21,16 +21,21 @@
     </h1>
 </div>
 
+<%--Error message--%>
+<jsp:include page="/WEB-INF/pages/common/erreurs/errorMessage.jsp" />
+
 <form:form method="POST" id="clientForm" modelAttribute="clientForm" >
     <table>
         <tbody>
         <tr>
             <th><form:label path="client.nom" for="nom" ><spring:message code="fiche.client.nom"/></form:label></th>
             <td><form:input path="client.nom" id="nom" maxlength="20" size="30" /></td>
+            <td><form:errors path="client.nom" cssClass="error" /></td>
         </tr>
         <tr>
             <th><form:label path="client.prenom" for="prenom" ><spring:message code="fiche.client.prenom"/></form:label></th>
             <td><form:input path="client.prenom" id="prenom" maxlength="20" size="30" /> </td>
+            <td><form:errors path="client.prenom" cssClass="error" /></td>
         </tr>
         </tbody>
     </table>

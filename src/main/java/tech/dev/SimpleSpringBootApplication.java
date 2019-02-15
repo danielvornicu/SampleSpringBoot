@@ -50,4 +50,5 @@ public class SimpleSpringBootApplication implements CommandLineRunner {
             LOGGER.debug(client.getId()  + ", " + client.getPrenom()  + ", " + client.getNom());
         }
     }
+
 }
