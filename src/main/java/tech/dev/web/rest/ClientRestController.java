@@ -1,6 +1,7 @@
 package tech.dev.web.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.dev.service.ClientService;
@@ -9,6 +10,7 @@ import tech.dev.web.common.base.AbstractRESTController;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value= ClientRestController.REQUEST_MAPPING)
 public class ClientRestController extends AbstractRESTController<ClientTO> {

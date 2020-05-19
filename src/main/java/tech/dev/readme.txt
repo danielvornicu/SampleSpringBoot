@@ -31,6 +31,8 @@ http://localhost:8090/rsclient/1  - consult
 http://localhost:8090/rsclient/1/edit
 http://localhost:8090/rsclient/1/delete
 
+If we call the REST API from Angular add @CrossOrigin(origins = "http://localhost:4200") annotation to Rest Controller
+
 http://localhost:8090/h2-console
 JDBC URL: jdbc:h2:mem:testdb
 User Name: sa
