@@ -1,16 +1,6 @@
 package tech.dev;
 
-import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
 
 /**
  * Description de la classe
@@ -22,13 +12,13 @@ import org.springframework.web.servlet.view.JstlView;
  */
 
 //using application.properties mechanism
-@Configuration
-@EnableWebMvc
+//@Configuration
+//@EnableWebMvc
 public class MvcConfiguration implements WebMvcConfigurer {
 
 
 	//manual pring boot bean configuration vs spring boot auto-configuration via application.properties
-	@Bean
+/*	@Bean
 	public ViewResolver internalResourceViewResolver() {
 		InternalResourceViewResolver resolver  = new InternalResourceViewResolver();
 		resolver.setViewClass(JstlView.class);
@@ -64,7 +54,7 @@ public class MvcConfiguration implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry
-				.addResourceHandler("/resources/**")
+				.addResourceHandler("/resources*//**")
 				.addResourceLocations("/resources/");
-	}
+	}*/
 }

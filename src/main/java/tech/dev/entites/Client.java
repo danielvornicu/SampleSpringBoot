@@ -1,7 +1,6 @@
 package tech.dev.entites;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -15,7 +14,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "CLIENT")
-@NamedQueries({
+@NamedQueries(value = {
         @NamedQuery(
                 name = "Client.findAll",
                 query = "select c from Client c "
@@ -30,9 +29,9 @@ import java.util.Set;
                         + "where c.id = :id "
         ),
         @NamedQuery(
-        name = "Client.findClientsByAdresseId",
-        query = "select c from Client c "
-                + "where c.adresse.id = :adresseId "
+                name = "Client.findClientsByAdresseId",
+                query = "select c from Client c "
+                        + "where c.adresse.id = :adresseId "
         ),
         @NamedQuery(
                 name = "Client.deleteById",
