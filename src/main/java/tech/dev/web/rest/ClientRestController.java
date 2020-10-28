@@ -10,7 +10,8 @@ import tech.dev.web.common.base.AbstractRESTController;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
+//port 4200 for Angular client, port 3000 for React client
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000"})
 @RestController
 @RequestMapping(value= ClientRestController.REQUEST_MAPPING)
 public class ClientRestController extends AbstractRESTController<ClientTO> {
