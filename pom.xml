@@ -7,11 +7,12 @@
     <groupId>tech.dev</groupId>
     <artifactId>SampleSpringBoot</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <!-- jar ou war -->
+    <packaging>jar</packaging>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.1.RELEASE</version>
+        <version>2.1.2.RELEASE</version>
     </parent>
 
     <properties>
@@ -40,6 +41,7 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
+
         <!--Spring Data JPA with Hibernate-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -64,6 +66,13 @@
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
+
+        <!--Postgresql  -->
+<!--        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>-->
 
         <!-- For JSTL Core taglib in .jsp file -->
         <dependency>
