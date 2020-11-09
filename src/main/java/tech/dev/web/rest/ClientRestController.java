@@ -12,7 +12,10 @@ import java.util.List;
 
 //port 4200 for Angular client, port 3000 for React client
 //add Heroku Rest API, port 8080
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000", "https://sample-crud-springboot.herokuapp.com"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000",
+        "https://sample-crud-springboot.herokuapp.com",
+        "https://sample-crud-react.herokuapp.com"
+})
 @RestController
 @RequestMapping(value= ClientRestController.REQUEST_MAPPING)
 public class ClientRestController extends AbstractRESTController<ClientTO> {
