@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base.html}">
+
+  <head>
+    <title layout:fragment="title" th:text = "#{liste.clients.rest.thymeleaf.titre}"></title>
+  </head>
+  
+  <body>
+    <div class='card' layout:fragment="content">
+        <div class='card-header'>
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 th:text = "#{liste.clients.rest.thymeleaf.titre}"/>
+                </div>
+            </div>
+        </div>
+
+        <div class='card-body'>
+            <div class='table-responsive'>
+                <table class='table table-bordered table-striped table-responsive-md'>
+                    <thead>
+                    <tr>
+                        <th th:text = "#{fiche.client.nom}" />
+                        <th th:text = "#{fiche.client.prenom}" />
+                        <th th:text = "#{liste.action.titre}" />
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr th:each="client : ${listeClients}">
+                            <td th:text="${client.nom}"></td>
+                            <td th:text="${client.prenom}"></td>
+                            <td>
+                                <a th:href="@{/rsclient/{id}(id=${client.id})}"
+                                   th:title="#{liste.action.consulterTitle}"
+                                   th:text="#{liste.action.consulter}"
+                                   class="btn btn-outline-primary btn-sm"></a>
+                                |
+                                <a  th:href="@{/rsclient/{id}/edit(id=${client.id})}"
+                                    th:title="#{liste.action.modifierTitle}"
+                                    th:text="#{liste.action.modifier}"
+                                    class="btn btn-outline-primary btn-sm"></a>
+                                |
+                                <a  th:href="@{/rsclient/{id}/delete(id=${client.id})}"
+                                    th:title="#{liste.action.supprimerTitle}"
+                                    th:text="#{liste.action.supprimer}"
+                                    class="btn btn-outline-danger btn-sm"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="panel">
+                <a th:href="@{/rsclient/new}"
+                   th:title="#{fiche.bouton.creerTitle}"
+                   th:text="#{fiche.bouton.creer}"
+                   class="btn btn btn-outline-primary btn-sm" ></a>
+            </div>
+        </div>
+    </div>
+  </body>
+
+</html>
+

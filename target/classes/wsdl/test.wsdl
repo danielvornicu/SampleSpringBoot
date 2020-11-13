@@ -1,0 +1,48 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="http://jaxws.test.com/test" targetNamespace="http://jaxws.test.com/test">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://jaxws.test.com/test" version="1.0">
+            <xs:element name="getInfoRequest" type="tns:getInfoRequest"/>
+            <xs:element name="getInfoResponse" type="tns:getInfoResponse"/>
+            <xs:complexType name="getInfoRequest">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getInfoResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="getInfoRequest">
+        <wsdl:part element="tns:getInfoRequest" name="getInfoRequest"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getInfoResponse">
+        <wsdl:part element="tns:getInfoResponse" name="getInfoResponse"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="TestWebServ">
+        <wsdl:operation name="getInfo">
+            <wsdl:input message="tns:getInfoRequest" name="getInfoRequest"> </wsdl:input>
+            <wsdl:output message="tns:getInfoResponse" name="getInfoResponse"> </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="TestWebServSoap11" type="tns:TestWebServ">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getInfo">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="getInfoRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getInfoResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="TestWebService">
+        <wsdl:port binding="tns:TestWebServSoap11" name="TestWebServSoap11">
+            <soap:address location="http://localhost:8090/ws/test"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

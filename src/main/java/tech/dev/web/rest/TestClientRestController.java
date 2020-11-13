@@ -38,9 +38,9 @@ public class TestClientRestController extends AbstractSearchEditController<Clien
     public static final String CLIENT_FORM = "clientForm";
     public static final String CLIENTS_LISTE = "listeClients";
 
-    //public static final String REST_SERVICE_URI = "http://localhost:8090/clients";
+    public static final String REST_SERVICE_URI = "http://localhost:8090/clients";
     //Heroku REST API URL
-    public static final String REST_SERVICE_URI = "https://sample-crud-springboot.herokuapp.com/clients";
+    //public static final String REST_SERVICE_URI = "https://sample-crud-springboot.herokuapp.com/clients";
 
     @Override
     protected String getRootView() {

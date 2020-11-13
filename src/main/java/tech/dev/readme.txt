@@ -65,4 +65,43 @@ http://localhost:8090/wsclient/1/delete
 
 A simple client for SOAP WS (version java): lancer SimpleSpringBootApplication.java that implements CommandLineRunner run()
 
+Using Thymeleaf Template Engine:
+Add the Thymeleaf dependencies in pom.xml:
+  <!--Thymeleaf-->
+  <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+  </dependency>
+  <!--Thymeleaf Layout Dialect-->
+  <dependency>
+      <groupId>nz.net.ultraq.thymeleaf</groupId>
+      <artifactId>thymeleaf-layout-dialect</artifactId>
+  </dependency>
+All the templates are in resources/templates, static files in resources/static/css and resources/static/js
+The URLs for Spring MVC/Rest Client/WS Client are the same.
+If we comment the 2 POM dependeciens the app will take the original .jps file from: webapp/WEB-INF/pages, 
+static files in webapp/resources/css and webapp/resources/js
+
 Plugin Chrome for testing SOAP WS(Wizdler or soapUI or Boomerang) for browsing WSDL and make Request/Response.
+
+Use Heroku Git with Heroku CLI:
+git init
+git add .
+git commit -m "initial commit"
+How to link a folder with an existing Heroku app
+git remote add heroku https://git.heroku.com/sample-crud-springboot.git
+git push heroku master
+How to push different local Git branch to Heroku/master
+git push heroku spring-boot-mvc-soap-rest-validation+client:master  --force
+
+
+Deploy SampleSpringBoot application on Heroku:
+Heroku is a PaaS(Platform as a Service). We use Heroku CLI
+>heroku apps
+>heroku create
+>heroku apps:rename --app fierce-brook-87191 sample-crud-springboot          - rename heroku app
+>heroku logs -t
+
+
+
+
