@@ -2,7 +2,10 @@ package tech.dev.web.common.base;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import tech.dev.commons.to.base.TransferObject;
 
 import java.util.List;
@@ -100,7 +103,7 @@ public abstract class AbstractRESTController<T extends TransferObject> {
      * @param isCreation true si on est en création
      * @return la liste des to apres creation/modification
      */
-    protected abstract List<T> saveTO(T to, boolean isCreation);
+    protected abstract List<T> saveTO(T to,  boolean isCreation);
 
     /**
      * Supprime un TO

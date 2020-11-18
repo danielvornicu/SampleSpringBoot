@@ -46,6 +46,7 @@ public class ClientRestController extends AbstractRESTController<ClientTO> {
     @Override
     protected List<ClientTO> saveTO(ClientTO to, boolean isCreation) {
         clientService.saveTO(to, isCreation);
+
         //returne la liste des TO apres la creation/modification
         List<ClientTO> clients = clientService.findAllFillTO();
         return clients;
@@ -54,6 +55,7 @@ public class ClientRestController extends AbstractRESTController<ClientTO> {
     @Override
     protected List<ClientTO> deleteTO(Long id) {
         clientService.deleteClientByClientId(id);
+
         //returne la liste des TO apres la suppression
         List<ClientTO> clients = clientService.findAllFillTO();
         return clients;

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tech.dev.commons.to.base.TransferObject;
 import tech.dev.commons.utils.SessionManager;
 
@@ -69,11 +70,12 @@ public abstract class AbstractSearchEditController<T extends TransferObject,  F 
      * @param result le bindingResult contenant éventuellement des erreurs
      * @param model le model
      * @param status le sessionStatus
+     * @param redirectAttributes les atributes de redirection
      * @return la vue contenant l'écran de recherche
      */
     @RequestMapping(value = "/new", method = RequestMethod.POST)
-    public String create(@Valid F form, BindingResult result, ModelMap model, SessionStatus status) {
-        return createOrUpdate(form, result, model, status, true);
+    public String create(@Valid F form, BindingResult result, ModelMap model, SessionStatus status,  RedirectAttributes redirectAttributes) {
+        return createOrUpdate(form, result, model, status, redirectAttributes, true);
     }
 
     /**
@@ -96,11 +98,12 @@ public abstract class AbstractSearchEditController<T extends TransferObject,  F 
      * @param result le bindingResult contenant éventuellement des erreurs
      * @param model le model
      * @param status le sessionStatus
+     * @param redirectAttributes les atributes de redirection
      * @return la vue contenant l'écran de recherche
      */
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.POST)
-    public String update(@PathVariable Long id, @Valid F form, BindingResult result, ModelMap model, SessionStatus status) {
-        return createOrUpdate(form, result, model, status, false);
+    public String update(@PathVariable Long id, @Valid F form, BindingResult result, ModelMap model, SessionStatus status,  RedirectAttributes redirectAttributes) {
+        return createOrUpdate(form, result, model, status, redirectAttributes, false);
     }
 
     /**
@@ -113,10 +116,11 @@ public abstract class AbstractSearchEditController<T extends TransferObject,  F 
      * @param result le bindingResult contenant éventuellement des erreurs
      * @param model le model
      * @param status le sessionStatus
+     * @param redirectAttributes les atributes de redirection
      * @param isCreation true si on est en création
      * @return la vue actuelle s'il y a des erreurs, la redirection définie dans getRedirectAfterEdit sinon. Dans le cas ajax avec erreur, retourne un JsonDialogReturn contenant l'erreur.
      */
-    private String createOrUpdate(@Valid F form, BindingResult result, ModelMap model, SessionStatus status, boolean isCreation) {
+    private String createOrUpdate(@Valid F form, BindingResult result, ModelMap model, SessionStatus status, RedirectAttributes redirectAttributes, boolean isCreation) {
 
         if (result.hasErrors()) {
             addErrorMessage(model, getAllErrorMessagesBindingResult(result));
@@ -137,7 +141,7 @@ public abstract class AbstractSearchEditController<T extends TransferObject,  F 
         }
 
         // On met à jour le TO
-        saveTO(to, model, isCreation);
+        saveTO(to, model, redirectAttributes, isCreation);
 
         // Efface les données de la session
         status.setComplete();
@@ -191,12 +195,13 @@ public abstract class AbstractSearchEditController<T extends TransferObject,  F 
      * Supprime un objet.
      * @param id l'id de l'object à supprimer
      * @param model le model
+     * @param redirectAttributes les atributes de redirection
      * @return la vue contenant l'écran de recherche
      */
 
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
-    public String delete(@PathVariable Long id, ModelMap model) {
-        deleteTO(id, model);
+    public String delete(@PathVariable Long id, ModelMap model, RedirectAttributes redirectAttributes) {
+        deleteTO(id, model, redirectAttributes);
         return "redirect:" + DOUBLE_PARENT_DIRECTORY + getRootView();
     }
 
@@ -233,17 +238,19 @@ public abstract class AbstractSearchEditController<T extends TransferObject,  F 
      * Appelle le service pour créer ou modifier le TO
      * @param to le TO à mettre à jour
      * @param model le model
+     * @param redirectAttributes les atributes de redirection
      * @param isCreation true si on est en création
      * @return true si tout s'est bien passé et false sinon
      */
-    protected abstract boolean saveTO(T to, ModelMap model, boolean isCreation);
+    protected abstract boolean saveTO(T to, ModelMap model, RedirectAttributes redirectAttributes, boolean isCreation);
 
     /**
      * Supprime un TO
      * @param id l'id du TO à supprimer
      * @param model le model
+     * @param redirectAttributes les atributes de redirection
      */
-    protected abstract void deleteTO(Long id, ModelMap model);
+    protected abstract void deleteTO(Long id, ModelMap model, RedirectAttributes redirectAttributes);
 
     /**
      * Retourne la chaine de caractère correspondant à la base des vues du controller

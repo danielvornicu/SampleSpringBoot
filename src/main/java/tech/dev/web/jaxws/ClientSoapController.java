@@ -7,6 +7,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.ws.client.core.WebServiceTemplate;
 import tech.dev.to.ClientTO;
 import tech.dev.web.common.base.AbstractSearchEditController;
@@ -146,7 +147,7 @@ public class ClientSoapController extends AbstractSearchEditController<ClientTO,
     }
 
     @Override
-    protected boolean saveTO(ClientTO to, ModelMap model, boolean isCreation) {
+    protected boolean saveTO(ClientTO to, ModelMap model, RedirectAttributes redirectAttributes, boolean isCreation) {
         //clientService.saveTO(to, isCreation);
 
 //        ClientWebService service = new ClientWebService() ;
@@ -167,11 +168,20 @@ public class ClientSoapController extends AbstractSearchEditController<ClientTO,
         request.setArg1(isCreation);
 
         SaveClientResponse response = (SaveClientResponse) webServiceTemplate.marshalSendAndReceive(request);
+
+        //add flash message
+        if (isCreation) {
+            messages.put("success", messageSource.getMessage("liste.action.creerSucces", null, null));
+        } else {
+            messages.put("success", messageSource.getMessage("liste.action.modifierSucces", null, null));
+        }
+        redirectAttributes.addFlashAttribute("messages", messages);
+
         return true;
     }
 
     @Override
-    protected void deleteTO(Long id, ModelMap model) {
+    protected void deleteTO(Long id, ModelMap model, RedirectAttributes redirectAttributes) {
         //clientService.deleteClientByClientId(id);
 
         //ClientWebService service = new ClientWebService() ;
@@ -183,13 +193,17 @@ public class ClientSoapController extends AbstractSearchEditController<ClientTO,
         DeleteClientByIdRequest request = factory.createDeleteClientByIdRequest();
         request.setArg0(id);
         DeleteClientByIdResponse response = (DeleteClientByIdResponse) webServiceTemplate.marshalSendAndReceive(request);
+
+        //add flash message
+        messages.put("success", messageSource.getMessage("liste.action.supprimerSucces", null, null));
+        redirectAttributes.addFlashAttribute("messages", messages);
     }
 
 
     //override necessaire que pour la partie WS Soap pour gerer le sous repertoire wspages
     @Override
-    public String delete(@PathVariable Long id, ModelMap model) {
-        deleteTO(id, model);
+    public String delete(@PathVariable Long id, ModelMap model, RedirectAttributes redirectAttributes) {
+        deleteTO(id, model, redirectAttributes);
         return "redirect:../.." + REQUEST_MAPPING;
     }
 

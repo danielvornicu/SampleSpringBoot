@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tech.dev.service.ClientService;
 import tech.dev.to.ClientTO;
 import tech.dev.web.common.base.AbstractSearchEditController;
@@ -71,14 +72,26 @@ public class ClientController extends AbstractSearchEditController<ClientTO, Cli
     }
 
     @Override
-    protected boolean saveTO(ClientTO to, ModelMap model, boolean isCreation) {
+    protected boolean saveTO(ClientTO to, ModelMap model, RedirectAttributes redirectAttributes, boolean isCreation) {
         clientService.saveTO(to, isCreation);
+
+        //add flash message
+        if (isCreation) {
+            messages.put("success", messageSource.getMessage("liste.action.creerSucces", null, null));
+        } else {
+            messages.put("success", messageSource.getMessage("liste.action.modifierSucces", null, null));
+        }
+        redirectAttributes.addFlashAttribute("messages", messages);
+
         return true;
     }
 
     @Override
-    protected void deleteTO(Long id, ModelMap model) {
+    protected void deleteTO(Long id, ModelMap model, RedirectAttributes redirectAttributes) {
         clientService.deleteClientByClientId(id);
+        //add flash message
+        messages.put("success", messageSource.getMessage("liste.action.supprimerSucces", null, null));
+        redirectAttributes.addFlashAttribute("messages", messages);
     }
 
 }

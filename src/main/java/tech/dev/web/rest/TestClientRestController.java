@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tech.dev.to.ClientTO;
 import tech.dev.web.common.base.AbstractSearchEditController;
 import tech.dev.web.formulaires.ClientForm;
@@ -126,21 +127,28 @@ public class TestClientRestController extends AbstractSearchEditController<Clien
     }
 
     @Override
-    protected boolean saveTO(ClientTO to, ModelMap model, boolean isCreation) {
+    protected boolean saveTO(ClientTO to, ModelMap model, RedirectAttributes redirectAttributes, boolean isCreation) {
         //clientService.saveTO(to, isCreation);
 
         RestTemplate restTemplate = new RestTemplate();
         if (isCreation) {
             restTemplate.postForLocation(REST_SERVICE_URI + "/new", to, ClientTO.class);
+            //add flash message
+            messages.put("success", messageSource.getMessage("liste.action.creerSucces", null, null));
         } else {
             restTemplate.postForLocation(REST_SERVICE_URI + "/" +to.getId() + "/edit", to, ClientTO.class);
+            //add flash message
+            messages.put("success", messageSource.getMessage("liste.action.modifierSucces", null, null));
         }
+
+        //add flash message
+        redirectAttributes.addFlashAttribute("messages", messages);
 
         return true;
     }
 
     @Override
-    protected void deleteTO(Long id, ModelMap model) {
+    protected void deleteTO(Long id, ModelMap model, RedirectAttributes redirectAttributes) {
         //clientService.deleteClientByClientId(id);
 
         RestTemplate restTemplate = new RestTemplate();
@@ -148,12 +156,16 @@ public class TestClientRestController extends AbstractSearchEditController<Clien
 
         //on fait la suppresion avec un HTTP GET et pas evec un HTTP DELETE
         restTemplate.getForObject(REST_SERVICE_URI + "/" + id + "/delete", List.class);
+
+        //add flash message
+        messages.put("success", messageSource.getMessage("liste.action.supprimerSucces", null, null));
+        redirectAttributes.addFlashAttribute("messages", messages);
     }
 
     //override necessaire que pour la partie REST pour gerer le sous repertoire rspages
     @Override
-    public String delete(@PathVariable Long id, ModelMap model) {
-        deleteTO(id, model);
+    public String delete(@PathVariable Long id, ModelMap model, RedirectAttributes redirectAttributes) {
+        deleteTO(id, model, redirectAttributes);
         return "redirect:../.." + REQUEST_MAPPING;
     }
 

@@ -1,9 +1,14 @@
 package tech.dev.web.common.base;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import tech.dev.commons.constantes.ConstantesGlobales;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Description de la classe
@@ -22,6 +27,11 @@ public abstract class BaseController {
     public static final String PARENT_DIRECTORY = ConstantesGlobales.PARENT_DIRECTORY;
     public static final String DOUBLE_PARENT_DIRECTORY = PARENT_DIRECTORY + PARENT_DIRECTORY;
 
+    @Autowired
+    protected MessageSource messageSource;
+
+    //flashed messages
+    protected Map<String, String> messages = new HashMap<String, String>();
 
     /**
      * Retourne le message d'erreur contenu dans le model
