@@ -75,11 +75,17 @@ public class ClientController extends AbstractSearchEditController<ClientTO, Cli
     protected boolean saveTO(ClientTO to, ModelMap model, RedirectAttributes redirectAttributes, boolean isCreation) {
         clientService.saveTO(to, isCreation);
 
+        //parametres du message flash
+        Object[] params = new Object[2];
+        params[0] = to.getNom();
+        params[1] = to.getPrenom();
+
         //add flash message
+        messages.clear();
         if (isCreation) {
-            messages.put("success", messageSource.getMessage("liste.action.creerSucces", null, null));
+            messages.put("success", messageSource.getMessage("liste.action.creerSucces", params, null));
         } else {
-            messages.put("success", messageSource.getMessage("liste.action.modifierSucces", null, null));
+            messages.put("success", messageSource.getMessage("liste.action.modifierSucces", params, null));
         }
         redirectAttributes.addFlashAttribute("messages", messages);
 
@@ -90,7 +96,8 @@ public class ClientController extends AbstractSearchEditController<ClientTO, Cli
     protected void deleteTO(Long id, ModelMap model, RedirectAttributes redirectAttributes) {
         clientService.deleteClientByClientId(id);
         //add flash message
-        messages.put("success", messageSource.getMessage("liste.action.supprimerSucces", null, null));
+        messages.clear();
+        messages.put("warning", messageSource.getMessage("liste.action.supprimerSucces", null, null));
         redirectAttributes.addFlashAttribute("messages", messages);
     }
 

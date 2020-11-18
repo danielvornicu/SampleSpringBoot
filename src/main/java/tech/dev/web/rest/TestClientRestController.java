@@ -131,14 +131,21 @@ public class TestClientRestController extends AbstractSearchEditController<Clien
         //clientService.saveTO(to, isCreation);
 
         RestTemplate restTemplate = new RestTemplate();
+
+        //parametres du message flash
+        Object[] params = new Object[2];
+        params[0] = to.getNom();
+        params[1] = to.getPrenom();
+
+        messages.clear();
         if (isCreation) {
             restTemplate.postForLocation(REST_SERVICE_URI + "/new", to, ClientTO.class);
             //add flash message
-            messages.put("success", messageSource.getMessage("liste.action.creerSucces", null, null));
+            messages.put("success", messageSource.getMessage("liste.action.creerSucces", params, null));
         } else {
             restTemplate.postForLocation(REST_SERVICE_URI + "/" +to.getId() + "/edit", to, ClientTO.class);
             //add flash message
-            messages.put("success", messageSource.getMessage("liste.action.modifierSucces", null, null));
+            messages.put("success", messageSource.getMessage("liste.action.modifierSucces", params, null));
         }
 
         //add flash message
@@ -158,7 +165,8 @@ public class TestClientRestController extends AbstractSearchEditController<Clien
         restTemplate.getForObject(REST_SERVICE_URI + "/" + id + "/delete", List.class);
 
         //add flash message
-        messages.put("success", messageSource.getMessage("liste.action.supprimerSucces", null, null));
+        messages.clear();
+        messages.put("warning", messageSource.getMessage("liste.action.supprimerSucces", null, null));
         redirectAttributes.addFlashAttribute("messages", messages);
     }
 
