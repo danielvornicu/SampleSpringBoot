@@ -10,9 +10,9 @@ import tech.dev.web.common.base.AbstractRESTController;
 
 import java.util.List;
 
-//port 4200 for Angular client, port 3000 for React client
+//port 4200 for Angular client, port 3000 for React client, port 8081 for VueJs Client
 //add Heroku Rest API, port 8080
-@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000",
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:3000", "http://localhost:8081",
         "https://sample-crud-springboot.herokuapp.com",
         "https://sample-crud-react.herokuapp.com"
 })
