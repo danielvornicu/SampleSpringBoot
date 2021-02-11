@@ -18,7 +18,7 @@ import java.util.List;
         "https://sample-crud-springboot.herokuapp.com",
         "https://sample-crud-react.herokuapp.com",
         "https://danielvornicu.github.io",
-        "sample-crud-vue-js.surge.sh"
+        "http://sample-crud-vue-js.surge.sh"
 })
 @RestController
 @RequestMapping(value= ClientRestController.REQUEST_MAPPING)
