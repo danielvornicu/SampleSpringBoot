@@ -1,9 +1,9 @@
 # First stage: complete build environment
 FROM maven:3.5.0-jdk-8-alpine AS build
 
-# add pom.xml and source code
-ADD ./pom.xml /home/app/pom.xml
-ADD ./src /home/app/src
+# pom.xml and source code
+COPY src /home/app/src
+COPY pom.xml /home/app
 
 # package jar
 RUN mvn -f /home/app/pom.xml clean package -DskipTests
