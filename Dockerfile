@@ -17,4 +17,4 @@ COPY --from=build /home/app/target/SampleSpringBoot-1.0-SNAPSHOT.jar /usr/local/
 # ENV PORT=8080
 EXPOSE 8080
 
-CMD ["java", "-jar", "/usr/local/lib/SampleSpringBoot.jar"]
+ENTRYPOINT ["java", "-jar", "/usr/local/lib/SampleSpringBoot.jar"]
