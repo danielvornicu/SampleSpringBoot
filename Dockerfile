@@ -1,5 +1,5 @@
 # First stage: complete build environment
-FROM maven:3.5.0-jdk-8-alpine AS build
+FROM maven:3.8.6-jdk-8-slim AS builder
 
 # pom.xml and source code
 COPY . .
@@ -7,11 +7,11 @@ COPY . .
 # package jar
 RUN mvn clean package -DskipTests
 
-# Second stage: minimal runtime environment
-FROM openjdk:8-jre-alpine
+# Second stage: runtime environment
+FROM openjdk:8-jdk-alpine
 
 # copy jar from the first stage
-COPY --from=build /target/SampleSpringBoot-1.0-SNAPSHOT.jar SampleSpringBoot.jar
+COPY --from=builder /target/SampleSpringBoot-1.0-SNAPSHOT.jar SampleSpringBoot.jar
 
 # ENV PORT=8080
 EXPOSE 8080
