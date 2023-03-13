@@ -11,8 +11,8 @@ INSERT INTO CLIENT(PRENOM, NOM, ADRESSE_ID) VALUES ('ERIC', 'SIBER', 1);
 --INSERT INTO COMMANDE(NOMBRE_PRODUITS, MONTANT, DATE_COMMANDE, CLIENT_ID) VALUES (2, 150, CURRENT_DATE, 1);
 --INSERT INTO COMMANDE(NOMBRE_PRODUITS, MONTANT, DATE_COMMANDE, CLIENT_ID) VALUES (1, 100, CURRENT_DATE, 2);
 --
-INSERT INTO users VALUES ('dv', 'mdp', true);
-INSERT INTO users VALUES ('eric', 'passwordDb', true);
-INSERT INTO authorities VALUES ('dv', 'ROLE_ADMIN');
-INSERT INTO authorities VALUES ('eric', 'ROLE_USER');
-INSERT INTO authorities VALUES ('eric', 'ROLE_ADMIN');
+-- INSERT INTO users VALUES ('dv', 'mdp', true);
+-- INSERT INTO users VALUES ('eric', 'passwordDb', true);
+-- INSERT INTO authorities VALUES ('dv', 'ROLE_ADMIN');
+-- INSERT INTO authorities VALUES ('eric', 'ROLE_USER');
+-- INSERT INTO authorities VALUES ('eric', 'ROLE_ADMIN');
