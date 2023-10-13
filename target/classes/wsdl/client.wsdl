@@ -1,0 +1,152 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="http://jaxws.clients.com/client" targetNamespace="http://jaxws.clients.com/client">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://jaxws.clients.com/client" version="1.0">
+            <xs:element name="fetchClientsRequest" type="tns:fetchClientsRequest"/>
+            <xs:element name="fetchClientsResponse" type="tns:fetchClientsResponse"/>
+            <xs:element name="fetchClientByIdRequest" type="tns:fetchClientByIdRequest"/>
+            <xs:element name="fetchClientByIdResponse" type="tns:fetchClientByIdResponse"/>
+            <xs:element name="saveClientRequest" type="tns:saveClientRequest"/>
+            <xs:element name="saveClientResponse" type="tns:saveClientResponse"/>
+            <xs:element name="deleteClientByIdRequest" type="tns:deleteClientByIdRequest"/>
+            <xs:element name="deleteClientByIdResponse" type="tns:deleteClientByIdResponse"/>
+            <xs:complexType name="fetchClientsRequest">
+                <xs:sequence/>
+            </xs:complexType>
+            <xs:complexType name="fetchClientsResponse">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:clientTO"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="fetchClientByIdRequest">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="xs:long"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="fetchClientByIdResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:clientTO"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="saveClientRequest">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="tns:clientTO"/>
+                    <xs:element name="arg1" type="xs:boolean"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="saveClientResponse">
+                <xs:sequence>
+                    <xs:element name="return" type="xs:boolean"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="deleteClientByIdRequest">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="xs:long"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="deleteClientByIdResponse">
+                <xs:sequence/>
+            </xs:complexType>
+            <xs:complexType name="clientTO">
+                <xs:complexContent>
+                    <xs:extension base="tns:transferObject">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="id" type="xs:long"/>
+                            <xs:element minOccurs="0" name="nom" type="xs:string"/>
+                            <xs:element minOccurs="0" name="prenom" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType abstract="true" name="transferObject">
+                <xs:sequence/>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="saveClientRequest">
+        <wsdl:part element="tns:saveClientRequest" name="saveClientRequest"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="fetchClientByIdResponse">
+        <wsdl:part element="tns:fetchClientByIdResponse" name="fetchClientByIdResponse"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="saveClientResponse">
+        <wsdl:part element="tns:saveClientResponse" name="saveClientResponse"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="fetchClientsResponse">
+        <wsdl:part element="tns:fetchClientsResponse" name="fetchClientsResponse"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="deleteClientByIdResponse">
+        <wsdl:part element="tns:deleteClientByIdResponse" name="deleteClientByIdResponse"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="fetchClientByIdRequest">
+        <wsdl:part element="tns:fetchClientByIdRequest" name="fetchClientByIdRequest"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="fetchClientsRequest">
+        <wsdl:part element="tns:fetchClientsRequest" name="fetchClientsRequest"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="deleteClientByIdRequest">
+        <wsdl:part element="tns:deleteClientByIdRequest" name="deleteClientByIdRequest"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="ClientWebServ">
+        <wsdl:operation name="saveClient">
+            <wsdl:input message="tns:saveClientRequest" name="saveClientRequest"> </wsdl:input>
+            <wsdl:output message="tns:saveClientResponse" name="saveClientResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="fetchClientById">
+            <wsdl:input message="tns:fetchClientByIdRequest" name="fetchClientByIdRequest"> </wsdl:input>
+            <wsdl:output message="tns:fetchClientByIdResponse" name="fetchClientByIdResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="fetchClients">
+            <wsdl:input message="tns:fetchClientsRequest" name="fetchClientsRequest"> </wsdl:input>
+            <wsdl:output message="tns:fetchClientsResponse" name="fetchClientsResponse"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deleteClientById">
+            <wsdl:input message="tns:deleteClientByIdRequest" name="deleteClientByIdRequest"> </wsdl:input>
+            <wsdl:output message="tns:deleteClientByIdResponse" name="deleteClientByIdResponse"> </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="ClientWebServSoap11" type="tns:ClientWebServ">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="saveClient">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="saveClientRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="saveClientResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="fetchClientById">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="fetchClientByIdRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="fetchClientByIdResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="fetchClients">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="fetchClientsRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="fetchClientsResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="deleteClientById">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="deleteClientByIdRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="deleteClientByIdResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="ClientWebService">
+        <wsdl:port binding="tns:ClientWebServSoap11" name="ClientWebServSoap11">
+            <soap:address location="http://localhost:8090/ws/client"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

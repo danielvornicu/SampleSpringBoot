@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title layout:fragment="title"></title>
+      <link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+      <link rel="stylesheet" href="../static/css/styles.css" th:href="@{/css/styles.css}">
+      <!--Modal forms etc-->
+      <script type="text/javascript" src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+      <script type="text/javascript" src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+      <script type="text/javascript" src="../static/js/app.js" th:src="@{/js/app.js}"></script>
+  </head>
+  <body>
+      <div class="container">
+          <!--flashed messages-->
+          <div th:each="message, iterStat : ${messages}" th:id = "'message' + ${iterStat.index + 1}">
+              <div th:switch="${message.key}">
+                  <div th:case="'success'" class="alert alert-success alert-dismissible">
+                      <button class="close" th:data-target="'message' + ${iterStat.index + 1}" data-dismiss="alert" aria-label="delete">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                      <div th:text="${message.value}"></div>
+                  </div>
+                  <div th:case="'warning'" class="alert alert-warning alert-dismissible">
+                      <button class="close" th:data-target="'message' + ${iterStat.index + 1}" data-dismiss="alert" aria-label="delete">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                      <div th:text="${message.value}"></div>
+                  </div>
+                  <div th:case="'error'" class="alert alert-danger alert-dismissible">
+                      <button class="close" th:data-target="'message' + ${iterStat.index + 1}" data-dismiss="alert" aria-label="delete">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                      <div th:text="${message.value}"></div>
+                  </div>
+                  <div th:case="*" class="alert">
+                      <button class="close" th:data-target="'message' + ${iterStat.index + 1}" data-dismiss="alert" aria-label="delete">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                      <div th:text="${message.value}"></div>
+                  </div>
+              </div>
+          </div>
+          <!--flashed messages-->
+      </div>
+
+      <section class="section">
+          <div class="container">
+              <div layout:fragment="content"></div>
+
+              <!--Dialog modal de confirmation de suppression-->
+              <div class="modal" tabindex="-1" role="dialog" id="deleteModal">
+                  <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <h5 class="modal-title" th:text="#{liste.action.confirmerSuppressionTitle}"></h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                              </button>
+                          </div>
+                          <div class="modal-body">
+                              <p th:text="#{fiche.bouton.supprimerConfirm}"></p>
+                          </div>
+                          <div class="modal-footer">
+                              <a href="" class="btn btn-primary" id="delRef"
+                                 th:text="#{fiche.bouton.confirm.oui}">
+                              </a>
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                      th:text="#{fiche.bouton.annuler}">
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <!--Dialog modal de confirmation de suppression-->
+          </div>
+      </section>
+  </body>
+</html>
