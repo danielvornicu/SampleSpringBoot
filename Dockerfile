@@ -5,7 +5,7 @@ FROM maven:3.8.3-openjdk-17 AS builder
 COPY . .
 
 # package jar
-RUN mvn clean install
+RUN mvn clean package
 
 # Second stage: runtime environment
 FROM openjdk:17-jdk-slim
