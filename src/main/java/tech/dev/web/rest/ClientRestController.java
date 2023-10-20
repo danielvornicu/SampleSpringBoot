@@ -20,7 +20,10 @@ import java.util.List;
         "https://sample-crud-react.herokuapp.com",
         "https://danielvornicu.github.io",
         "http://sample-crud-react.surge.sh",
-        "http://sample-crud-vue-js.surge.sh"
+        "http://sample-crud-vue-js.surge.sh",
+        "https://sample-crud-springboot.onrender.com",
+        "https://sample-crud-react.onrender.com",
+        "https://sample-crud-vuejs.onrender.com"
 })
 @RestController
 @RequestMapping(value= ClientRestController.REQUEST_MAPPING)
