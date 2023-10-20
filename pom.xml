@@ -189,6 +189,14 @@
                     </execution>
                 </executions>
 
+                <dependencies>
+                    <dependency>
+                        <groupId>org.glassfish.jaxb</groupId>
+                        <artifactId>jaxb-runtime</artifactId>
+                        <version>2.3.1</version>
+                    </dependency>
+                </dependencies>
+
                 <configuration>
                     <generatePackage>com.sei.generate</generatePackage>
                     <generateDirectory>${project.basedir}/src/main/java</generateDirectory>
