@@ -8,7 +8,7 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 # Second stage: runtime environment
-FROM openjdk:8-jdk-alpine
+FROM eclipse-temurin:8-jdk
 
 # copy jar from the first stage
 COPY --from=builder /target/SampleSpringBoot-1.0-SNAPSHOT.jar SampleSpringBoot.jar
