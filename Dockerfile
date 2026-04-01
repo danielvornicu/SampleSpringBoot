@@ -16,4 +16,4 @@ COPY --from=builder /target/SampleSpringBoot-1.0-SNAPSHOT.jar SampleSpringBoot.j
 # ENV PORT=8080
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "SampleSpringBoot.jar", "--server.port=$PORT"]
+ENTRYPOINT ["java", "-jar", "SampleSpringBoot.jar"]
