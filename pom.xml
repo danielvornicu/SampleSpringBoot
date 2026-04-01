@@ -80,16 +80,17 @@
         </dependency> -->
 
         <!--Postgresql  -->
-        <dependency>
+<!--        <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
-        </dependency>
+        </dependency> -->
+             
        <!--Oracle  -->
          <dependency>
              <groupId>com.oracle.database.jdbc</groupId>
              <artifactId>ojdbc11</artifactId>
-             <version>23.26.0.0.0</version>
+             <version>21.5.0.0</version>
              <scope>compile</scope>
          </dependency>
 
