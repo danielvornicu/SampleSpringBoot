@@ -83,6 +83,7 @@
          <dependency>
              <groupId>com.oracle.database.spring</groupId>
              <artifactId>oracle-spring-boot-starter-wallet</artifactId>
+             <version>24.4.0</version>      
          </dependency>
 
 <!--         <dependency>
