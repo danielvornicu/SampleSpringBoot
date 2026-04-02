@@ -74,10 +74,10 @@
         </dependency>
 
          <!-- Spring JDBC -->    
-        <dependency>
+   <!--  <dependency>
              <groupId>org.springframework.boot</groupId>
              <artifactId>spring-boot-starter-jdbc</artifactId>
-         </dependency>    
+         </dependency>   -->  
              
          <!--Wallet dependency is only required if you’re using a database wallet (Oracle OCI Database) -->    
   <!--        <dependency>
