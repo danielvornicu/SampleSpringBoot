@@ -65,7 +65,7 @@
 <!--        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>-->
+        </dependency>  -->
 
         <!--For SOAP Web Services -->
         <dependency>
@@ -104,7 +104,7 @@
              <groupId>com.oracle.database.jdbc</groupId>
              <artifactId>ojdbc8</artifactId>
              <version>21.9.0.0</version>
-         </dependency>  <!--
+         </dependency>  -->
 
         <!-- For JSTL Core taglib in .jsp file -->
         <dependency>
